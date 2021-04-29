@@ -1,5 +1,4 @@
 FROM alpine
-LABEL maintainer="vapor@vapor.io"
 
 RUN apk --update --no-cache add openipmi-lanserv
 
@@ -8,6 +7,10 @@ RUN apk --update --no-cache add openipmi-lanserv
 RUN mkdir -p /tmp/chassis
 
 COPY . /tmp/ipmisim
+
+# Used by the lancontrol script to search for ip_addr_src when an IPMI
+# network command is handled (eg. ipmitool lan print)
+COPY ./interfaces /etc/network/
 
 EXPOSE 623/udp
 

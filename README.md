@@ -97,4 +97,7 @@ ipmitool [options] chassis bootparam get 5
 
 # Set Boot Target
 ipmitool [options] chassis bootdev [none|pxe|disk|cdrom|bios]
+
+# Get LAN Settings
+ipmitool [options] lan print
 ```
