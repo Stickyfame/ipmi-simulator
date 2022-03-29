@@ -35,6 +35,7 @@
 # committing it.  It is only implemented for the ip_addr_src parm.
 #
 
+lan_control_path="/tmp/lancontrol"
 prog=$0
 
 device=$1
@@ -62,16 +63,12 @@ do_get() {
 		;;
 
 	    ip_addr_src)
-		val=`grep "iface $device inet" /etc/network/interfaces | tr ' ' '\t' | tr -s '\t' '\t' | cut -f 4`
-		case "x$val" in
-		    xstatic)
-			;;
-		    xdhcp)
-			;;
-		    *)
-			val="unknown"
-			;;
-		esac
+                path="$lan_control_path/ipsrc"
+                if [ ! -f "$path" ]; then
+                    echo "dhcp" > "$path"
+                fi
+
+                val=$(cat $path)
 		;;
 
 	    mac_addr)
@@ -139,9 +136,13 @@ do_set() {
 
 	case $parm in
 	    ip_addr)
+                ifconfig $device $val netmask 255.255.255.0
+                exit 0
 		;;
 
 	    ip_addr_src)
+                path="$lan_control_path/ipsrc"
+                echo "$val" > "$path"
 		;;
 
 	    mac_addr)
