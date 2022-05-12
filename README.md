@@ -71,6 +71,11 @@ ipmitool [options] mc info
 # User
 ipmitool [options] user summary
 ipmitool [options] user list
+ipmitool [options] set name
+ipmitool [options] set password
+ipmitool [options] disable
+ipmitool [options] enable
+ipmitool [options] priv
 
 # Chassis Commands
 ipmitool [options] chassis status
@@ -96,7 +101,7 @@ ipmitool [options] identify [value]
 ipmitool [options] chassis bootparam get 5
 
 # Set Boot Target
-ipmitool [options] chassis bootdev [none|pxe|disk|cdrom|bios]
+ipmitool [options] chassis bootdev [none|pxe|disk|cdrom|bios|floppy]
 
 # Get LAN Settings
 ipmitool [options] lan print
