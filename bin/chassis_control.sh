@@ -163,6 +163,9 @@ do_set() {
                 default)
                     set_boot "default"
                 ;;
+                floppy)
+                    set_boot "floppy"
+                ;;
                 *)
                     err "Invalid boot value: $val"
                     exit 1

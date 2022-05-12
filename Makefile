@@ -3,7 +3,7 @@
 #
 
 VERSION  := 0.1
-IMG_NAME := vaporio/ipmi-simulator
+IMG_NAME := canteuni/ipmi-simulator
 
 TAGS := ${IMG_NAME}:latest ${IMG_NAME}:${VERSION}
 

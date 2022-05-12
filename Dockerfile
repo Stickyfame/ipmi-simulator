@@ -13,7 +13,6 @@ COPY . /tmp/ipmisim
 # network command is handled (eg. ipmitool lan print)
 COPY ./interfaces /etc/network/
 
-
 EXPOSE 623/udp
 
-CMD ["ipmi_sim", "-n", "-c", "/tmp/ipmisim/lan.conf", "-f", "/tmp/ipmisim/sim.emu"]
+CMD ["/tmp/ipmisim/ipmi_sim", "-n", "-c", "/tmp/ipmisim/lan.conf", "-f", "/tmp/ipmisim/sim.emu"]
