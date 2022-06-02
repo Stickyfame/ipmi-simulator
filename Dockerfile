@@ -7,7 +7,11 @@ RUN apk --update --no-cache add openipmi-lanserv
 RUN mkdir -p /tmp/chassis
 RUN mkdir -p /tmp/lancontrol
 
-COPY . /tmp/ipmisim
+COPY ./lan.conf /tmp/ipmisim/
+COPY ./sim.emu /tmp/ipmisim/
+COPY ./bin/* /tmp/ipmisim/bin/
+COPY ./ipmi_sim /tmp/ipmisim/
+
 
 # Used by the lancontrol script to search for ip_addr_src when an IPMI
 # network command is handled (eg. ipmitool lan print)
