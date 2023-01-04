@@ -106,3 +106,55 @@ ipmitool [options] chassis bootdev [none|pxe|disk|cdrom|bios|floppy]
 # Get LAN Settings
 ipmitool [options] lan print
 ```
+
+## Building the static binary
+
+Because some modifications have not been accepted yet in OpenIPMI lanserv
+upstream repository, you can build the `ipmi_sim` static binary and use it
+rather the one provided by the alpine package `openipmi-lanserv`.
+
+Building steps :
+- Be sure to be in an Alpine environment if you want to build the binary for Alpine
+  ```
+  docker run -it alpine:3.17
+  ```
+- Add edge/main apk repository
+  ```
+  echo https://dl-cdn.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
+  ```
+- Install building dependencies
+  ```
+  apk update
+  # building tools
+  apk add git build-base automake autoconf libtool
+  # required libraries for building openipmi
+  apk add popt-dev python3 python3-dev py3-pip ncurses-dev linux-headers readline-dev libedit-dev
+  ```
+- Make sure `python` is an available command
+  ```
+  which python
+  ```
+- Clone OpenIPMI repo (or your fork)
+  ```
+  git clone https://github.com/wrouesnel/openipmi.git
+  cd openipmi
+  ```
+- Run autotools
+  ```
+  autoupdate
+  autoreconf -f -i
+  ./configure
+  ```
+- Build and install
+  ```
+  make -j 4
+  make install
+  ```
+- Copy the binary outside the docker container
+  ```
+  cp <container-id>:/usr/local/bin/ipmi_sim .
+  ```
+
+> You can also use the ipmi_sim.Dockerfile in this repository, it will automatically
+> build the binary and place it in a `output` directory.
+> Just call `make build-ipmisim` .

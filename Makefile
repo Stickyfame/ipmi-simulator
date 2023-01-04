@@ -6,7 +6,7 @@ VERSION  := 0.1
 IMG_NAME := canteuni/ipmi-simulator
 
 TAGS := ${IMG_NAME}:latest ${IMG_NAME}:${VERSION}
-
+CURR_DIR = $(shell pwd)
 
 .PHONY: tags
 tags:  ## Print the tags used for the Docker images
@@ -17,6 +17,11 @@ build:  ## Build the Docker image for IPMI Simulator
 	tags="" ; \
 	for tag in $(TAGS); do tags="$${tags} -t $${tag}"; done ; \
 	docker build -f Dockerfile $${tags} .
+
+build-ipmisim:  ## Build the static ipmi_sim binary
+	docker build -f ipmi_sim.Dockerfile -t local/ipmi_sim_build .
+	docker run --rm -v $(CURR_DIR)/output:/output local/ipmi_sim_build
+	docker image rm --force local/ipmi_sim_build:latest
 
 .PHONY: run
 run: build  ## Build and run the IPMI Simulator locally (localhost:623/udp)
