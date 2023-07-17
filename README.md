@@ -105,6 +105,10 @@ ipmitool [options] chassis bootdev [none|pxe|disk|cdrom|bios|floppy]
 
 # Get LAN Settings
 ipmitool [options] lan print
+
+# Get sensor readings / SDR
+ipmitool [options] sdr list
+ipmitool [options] sensor
 ```
 
 ## Building the static binary

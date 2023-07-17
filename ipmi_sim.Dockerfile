@@ -32,4 +32,5 @@ RUN make install
 
 # Copy the binary in a shared directory
 CMD ["cp", "/usr/local/bin/ipmi_sim", "/output"]
-
+# Copy the builded sdrs in a shared directory
+CMD ["cp", "/openipmi/lanserv/ipmisim1.bsdr", "/output"]
